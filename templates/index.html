@@ -1,0 +1,60 @@
+{% include "header.html" %}
+
+<!-- Page Header-->
+<header
+  class="masthead"
+  style="background-image: url('../static/assets/img/todo.jpg')"
+>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>TODO Buddy</h1>
+          <span class="subheading">A list of all tasks </span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Main Content-->
+<div class="container">
+  <div>
+      <input class="form-control-lg col-12" name="task-description" id="inputDescription" type="text" placeholder="Default input" aria-label="default input example">
+      <button  id="addTask" class="btn btn-success col-12 mt-2">Add Task</button>
+  </div>
+
+      <table class="table" id="tasksTable">
+          <thead>
+              <tr>
+                  <th>Tasks</th>
+              </tr>
+          </thead>
+          <tbody>
+
+              {% for task in tasks %}
+                <tr>
+                  <td>
+                    {{ task.description }}
+
+                    <a {% if task.state == 1 %}
+                       class="btn btn-success text-uppercase btn-lg"
+                       {% else %} class="btn btn-dark text-uppercase btn-lg"
+                       {% endif %} id="toggleButton{{ task.id }}" onclick="toggleState({{ task.id }})" >
+                      {% if task.state == 1 %}
+                        In Progress
+                      {% else %}
+                        Done
+                      {% endif %}
+                    </a>
+
+                  </td>
+                </tr>
+              {% endfor %}
+              <!-- Add more rows as needed -->
+          </tbody>
+      </table>
+
+</div>
+
+{% include "footer.html" %}
